@@ -16,15 +16,24 @@ module.exports = document => {
             }
         } else {
             let isEmpty = true;
-            for (let k in current) {
+
+            if (typeof current.getMonth === 'function') {
                 isEmpty = false;
-                if (k === '_id') {
-                    result[k] = current[k.toString()];
-                } else {
-                    traverse(current[k], key ? key + '.' + k : k);
+                result[key] = String(current.getTime());
+            } else {
+                for (let k in current) {
+                    isEmpty = false;
+                    if (k === '_id') {
+                        result[k] = current[k.toString()];
+                    } else {
+                        traverse(current[k], key ? key + '.' + k : k);
+                    }
                 }
             }
-            if (isEmpty && key) result[key] = {};
+
+            if (isEmpty && key) {
+                result[key] = '';
+            }
         }
     };
 
