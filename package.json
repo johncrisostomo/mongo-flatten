@@ -1,8 +1,7 @@
 {
     "name": "mongo-flatten",
     "version": "0.0.1",
-    "description":
-        "Quick and simple function that accepts a MongoDB document and returns a flat structure Edit",
+    "description": "Quick and simple function that accepts a MongoDB document and returns a flat structure Edit",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +10,14 @@
         "type": "git",
         "url": "git+https://github.com/johncrisostomo/mongo-flatten.git"
     },
-    "keywords": ["mongodb", "flatten", "flat", "object", "shape", "utility"],
+    "keywords": [
+        "mongodb",
+        "flatten",
+        "flat",
+        "object",
+        "shape",
+        "utility"
+    ],
     "author": "John Crisostomo",
     "license": "MIT",
     "bugs": {
@@ -20,5 +26,10 @@
     "homepage": "https://github.com/johncrisostomo/mongo-flatten#readme",
     "engines": {
         "node": ">=8.0.0"
+    },
+    "devDependencies": {
+        "chai": "^4.1.2",
+        "istanbul": "^0.4.5",
+        "mocha": "^3.5.3"
     }
 }
