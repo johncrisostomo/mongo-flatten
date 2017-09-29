@@ -1,4 +1,5 @@
 const { expect } = require('chai');
+const mongoose = require('mongoose');
 
 const flatten = require('../index.js');
 
@@ -15,6 +16,51 @@ describe('mongo-flatten', () => {
 
             expect(JSON.stringify(result)).to.equal(
                 JSON.stringify({ 'sample.levelTwo': 'sample levelTwo!' })
+            );
+        });
+    });
+
+    describe('Empty objects and arrays', () => {
+        it('should put an empty string for empty nested objects', () => {
+            const dummy = {
+                sample: {
+                    levelTwo: {}
+                }
+            };
+
+            const result = flatten(dummy);
+
+            expect(JSON.stringify(result)).to.equal(
+                JSON.stringify({ 'sample.levelTwo': '' })
+            );
+        });
+
+        it('should handle an empty array appropriately', () => {
+            const dummy = {
+                sample: {
+                    levelTwo: []
+                }
+            };
+
+            const result = flatten(dummy);
+
+            expect(JSON.stringify(result)).to.equal(
+                JSON.stringify({ 'sample.levelTwo': [] })
+            );
+        });
+    });
+
+    describe('Handle MongoDB ObjectIds', () => {
+        it('should handle a MongoDB ObjectId appropriately', () => {
+            const id = mongoose.Types.ObjectId();
+            const dummy = {
+                _id: id
+            };
+
+            const result = flatten(dummy);
+
+            expect(JSON.stringify(result)).to.equal(
+                JSON.stringify({ _id: id.toString() })
             );
         });
     });
@@ -73,7 +119,7 @@ describe('mongo-flatten', () => {
         });
     });
 
-    describe('It should properly handle Date objects', () => {
+    describe('Date objects', () => {
         it('should not give [object Object] for Date', () => {
             const dummy = {
                 d: new Date(1506673237148)
